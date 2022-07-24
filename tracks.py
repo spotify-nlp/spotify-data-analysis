@@ -1,3 +1,6 @@
+# File to store track data for different moods, just so that we aren't re-making API calls every time we want to do something
+# Note that ideally the track lists are generated once and then messed with elsewhere
+
 from os import access
 
 from utils import get_mood_tracks
