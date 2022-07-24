@@ -6,6 +6,7 @@ from api_setup import BASE_URL
 
 LIMIT = 50
 
+# Returns list of track features from a list of playlist ids
 def get_mood_tracks(playlist_ids):
     # List of tracks
     tracks = []
@@ -46,3 +47,17 @@ def get_mood_tracks(playlist_ids):
     return tracks
 
 
+# Returns a list of features from a list of tracks
+def get_feature_data(track_list, feature):
+    # List of track_list's data on given feature
+    feature_data = []
+    for track in track_list:
+        feature_data.append(track[feature])
+
+    return feature_data
+
+# Trims a list of data to remove outliers using either interquartile range (IQR) or standard deviation (SD)
+def trim_data(data):
+    # TODO: Decide whether to use IQR or SD
+    # TODO: Implement this function
+    pass
