@@ -1,5 +1,6 @@
 from os import access
 import requests
+import numpy as np
 
 from api_setup import headers
 from api_setup import BASE_URL
@@ -56,8 +57,29 @@ def get_feature_data(track_list, feature):
 
     return feature_data
 
-# Trims a list of data to remove outliers using either interquartile range (IQR) or standard deviation (SD)
+
+# Trims a list of data to remove outliers using IQR
+# trim_data(list of float) -> list
 def trim_data(data):
-    # TODO: Decide whether to use IQR or SD
     # TODO: Implement this function
-    pass
+    data.sort()
+    q1 = np.percentile(data, 25)
+    q3 = np.percentile(data, 75)
+    iqr = q3 - q1
+
+    trimmed_data = []
+    for num in data:
+        if num > q1 - 1.5 * iqr and num < q3 + 1.5 * iqr:
+            trimmed_data.append(num)
+
+    print(q1)
+    print(q3)
+    print(iqr)
+    
+    return trimmed_data
+
+
+# Returns the mean of data
+# list of float -> float
+def get_mean(data):
+    return np.mean(data)
