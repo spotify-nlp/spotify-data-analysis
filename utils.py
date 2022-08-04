@@ -7,6 +7,9 @@ from api_setup import BASE_URL
 
 LIMIT = 50
 
+FEATURES = ['danceability', 'energy', 'loudness', 'valence', 'speechiness', 'tempo']
+
+
 # Returns list of track features from a list of playlist ids
 def get_mood_tracks(playlist_ids):
     # List of tracks
@@ -71,15 +74,18 @@ def trim_data(data):
     for num in data:
         if num > q1 - 1.5 * iqr and num < q3 + 1.5 * iqr:
             trimmed_data.append(num)
-
-    print(q1)
-    print(q3)
-    print(iqr)
     
     return trimmed_data
 
 
-# Returns the mean of data
-# list of float -> float
-def get_mean(data):
-    return np.mean(data)
+# Returns a dictionary of a mood's features
+def analyze(tracks):
+    # TODO: Analyze danceability, energy, loudness, valence, speechiness, tempo
+    data = {}
+    for feature in FEATURES:
+        feature_data = trim_data(get_feature_data(tracks, feature))
+        data['target_' + feature] = np.mean(feature_data)
+        data['min_' + feature] = feature_data[0]
+        data['max_' + feature] = feature_data[-1]
+    
+    return data
