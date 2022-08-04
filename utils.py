@@ -84,8 +84,8 @@ def analyze(tracks):
     data = {}
     for feature in FEATURES:
         feature_data = trim_data(get_feature_data(tracks, feature))
-        data['target_' + feature] = np.mean(feature_data)
-        data['min_' + feature] = feature_data[0]
-        data['max_' + feature] = feature_data[-1]
+        data["target_" + feature] = np.mean(feature_data)
+        data["min_" + feature] = feature_data[0]
+        data["max_" + feature] = feature_data[-1]
     
     return data
